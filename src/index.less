@@ -1,0 +1,58 @@
+@breakpoint-mobile: ~"(max-width: 768px)";
+@breakpoint-tablet: ~"(max-width: 1040px)";
+@breakpoint-desktop: ~"(min-width: 1040px)";
+
+:root {
+  --breakpoint-tablet: 48rem;
+  --max-width-page: 81.25rem;
+  --page-margin: auto auto 9.375rem auto;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --font-size-xsmall: 0.875rem;
+  --font-size-small: 1rem;
+  --font-size-medium: 1.125rem;
+  --font-size-large: 1.5rem;
+  --font-size-xlarge: 3rem;
+
+  --spacing-xmini: 0.125rem;
+  --spacing-mini: 0.5rem;
+  --spacing-xsmall: 1rem;
+  --spacing-small: 1.5rem;
+  --spacing-medium: 2rem;
+  --spacing-large: 2.5rem;
+  --spacing-xlarge: 4rem;
+  --spacing-xxlarge: 9.375rem;
+
+  --height-header: 7.25rem;
+  --border: 0.25rem;
+
+  --color-red: #ff0000;
+  --color-orange: #b3541a;
+  --color-white: #f5f5f5;
+  --color-black-light: #181818;
+  --color-black-extra-light: #282828;
+}
+
+html,
+#root {
+  font-family: "Segoe UI", "Arial", "sans-serif";
+  line-height: 1.5;
+  font-weight: 400;
+
+  background-color: #121212;
+  color: var(--color-white);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--color-white);
+  text-decoration: none;
+}
