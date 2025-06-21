@@ -1,0 +1,32 @@
+.listTable {
+  margin-right: var(--spacing-medium);
+  border-collapse: collapse;
+  width: 100%;
+
+  thead {
+    background-color: var(--color-black-extra-light);
+    padding: var(--spacing-mini);
+  }
+
+  th,
+  td {
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: var(--color-black-light);
+  }
+
+  tr {
+    border-bottom: 1px solid var(--color-black-extra-light);
+
+    &:hover {
+      background-color: var(--color-black-extra-light);
+    }
+  }
+
+  img {
+    width: 150px;
+    height: 100px;
+  }
+}
