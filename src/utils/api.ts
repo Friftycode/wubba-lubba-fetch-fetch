@@ -1,37 +1,66 @@
 export type RMCharacter = {
   id: string;
-  name: string;
-  status: string;
-  species: string;
   image: string;
+  name: string;
+  species: string;
+  gender: string;
+  location: { name: string };
+  origin: { name: string };
+  status: string;
+};
+
+type APICharacter = {
+  id: number;
+  image: string;
+  name: string;
+  species: string;
+  gender: string;
+  location: { name: string };
+  origin: { name: string };
+  status: string;
 };
 
 export const fetchRickAndMortyCharacters = async (): Promise<RMCharacter[]> => {
-  const graphqlEndpoint = 'https://rickandmortyapi.com/graphql';
-  const query = `
-    query {
-      characters(page: 1, filter: {}) {
-        results {
-          id
-          name
-          status
-          species
-          image
-        }
-      }
-    }
-  `;
-
-  const res = await fetch(graphqlEndpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query }),
-  });
+  const restEndpoint = 'https://rickandmortyapi.com/api/character';
+  const res = await fetch(restEndpoint);
 
   if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
   const json = await res.json();
-  const chars = json.data.characters.results as RMCharacter[] | null;
+  const chars = (json.results as APICharacter[]).map((c) => ({
+    id: String(c.id),
+    image: c.image,
+    name: c.name,
+    species: c.species,
+    gender: c.gender,
+    location: { name: c.location.name },
+    origin: { name: c.origin.name },
+    status: c.status,
+  }));
 
-  return chars ? chars : [];
+  return chars;
+};
+
+export type RMEpisode = {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  characters: string[];
+};
+
+export const fetchRickAndMortyEpisodes = async (): Promise<RMEpisode[]> => {
+  let episodes: RMEpisode[] = [];
+  let nextUrl: string | null = 'https://rickandmortyapi.com/api/episode';
+
+  while (nextUrl) {
+    const res = await fetch(nextUrl);
+    if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+
+    const json = await res.json();
+    episodes = episodes.concat(json.results);
+    nextUrl = json.info.next;
+  }
+
+  return episodes;
 };

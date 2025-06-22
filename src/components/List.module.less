@@ -2,10 +2,12 @@
   margin-right: var(--spacing-medium);
   border-collapse: collapse;
   width: 100%;
+  background-color: var(--color-black-extra-light);
 
   thead {
-    background-color: var(--color-black-extra-light);
+    background-color: var(--color-black-light);
     padding: var(--spacing-mini);
+    font-weight: var(--font-weight-medium);
   }
 
   th,
@@ -21,7 +23,7 @@
     border-bottom: 1px solid var(--color-black-extra-light);
 
     &:hover {
-      background-color: var(--color-black-extra-light);
+      background-color: var(--color-background-dark);
     }
   }
 
@@ -31,4 +33,13 @@
     object-fit: cover;
     display: block;
   }
+}
+
+.listLocation {
+  text-align: left;
+}
+
+.labelRow {
+  display: grid;
+  grid-template-columns: 100px 1fr;
 }
