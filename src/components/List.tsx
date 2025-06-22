@@ -2,19 +2,22 @@ import { useEffect, useState } from 'react';
 import {
   fetchRickAndMortyCharacters,
   fetchRickAndMortyEpisodes,
+  fetchRickAndMortyLocations,
   type RMCharacter,
   type RMEpisode,
+  type RMLocation,
 } from '../utils/api';
 import styles from './List.module.less';
 import placeholder from '../../assets/no-image-300x300.jpeg';
 
 type ListProps = {
-  view: 'characters' | 'episodes';
+  view: 'characters' | 'episodes' | 'locations';
 };
 
 const List = ({ view }: ListProps) => {
   const [chars, setChars] = useState<RMCharacter[]>([]);
   const [episodes, setEpisodes] = useState<RMEpisode[]>([]);
+  const [locations, setLocations] = useState<RMLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,9 +30,12 @@ const List = ({ view }: ListProps) => {
         if (view === 'characters') {
           const data = await fetchRickAndMortyCharacters();
           setChars(data);
-        } else {
+        } else if (view === 'episodes') {
           const data = await fetchRickAndMortyEpisodes();
           setEpisodes(data);
+        } else if (view === 'locations') {
+          const data = await fetchRickAndMortyLocations();
+          setLocations(data);
         }
       } catch (err) {
         console.error('Fetch error:', err);
@@ -51,12 +57,12 @@ const List = ({ view }: ListProps) => {
         <table className={styles.listTable}>
           <thead>
             <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Species</th>
-              <th>Gender</th>
-              <th>Location</th>
-              <th>Status</th>
+              <th>Interdimensional Mugshot</th>
+              <th>Probably Their Name</th>
+              <th>Planetary Genotype</th>
+              <th>Gender Stereotype</th>
+              <th>Currently Screwing Around In</th>
+              <th>Breathing or Buried</th>
             </tr>
           </thead>
           <tbody>
@@ -94,10 +100,10 @@ const List = ({ view }: ListProps) => {
         <table className={styles.listTable}>
           <thead>
             <tr>
-              <th>Episode</th>
-              <th>Name</th>
-              <th>Air Date</th>
-              <th>Character Count</th>
+              <th>Chronological Blip</th>
+              <th>Title You’ll Forget Anyway</th>
+              <th>Air Date, Woohoo</th>
+              <th>Population of This Mess</th>
             </tr>
           </thead>
           <tbody>
@@ -107,6 +113,27 @@ const List = ({ view }: ListProps) => {
                 <td>{ep.name}</td>
                 <td>{ep.air_date}</td>
                 <td>{ep.characters.length}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {view === 'locations' && (
+        <table className={styles.listTable}>
+          <thead>
+            <tr>
+              <th>Ugh, The Place</th>
+              <th>What It Technically Is</th>
+              <th>Dimensional Whatever</th>
+            </tr>
+          </thead>
+          <tbody>
+            {locations.map((loc) => (
+              <tr key={loc.id}>
+                <td>{loc.name}</td>
+                <td>{loc.type}</td>
+                <td>{loc.dimension}</td>
               </tr>
             ))}
           </tbody>

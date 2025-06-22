@@ -1,8 +1,8 @@
 import styles from './ToggleView.module.less';
 
 type ToggleViewProps = {
-  view: 'characters' | 'episodes';
-  onChange: (view: 'characters' | 'episodes') => void;
+  view: 'characters' | 'episodes' | 'locations';
+  onChange: (view: 'characters' | 'episodes' | 'locations') => void;
 };
 
 const ToggleView: React.FC<ToggleViewProps> = ({ view, onChange }) => {
@@ -19,6 +19,12 @@ const ToggleView: React.FC<ToggleViewProps> = ({ view, onChange }) => {
         onClick={() => onChange('episodes')}
       >
         Episodes
+      </button>
+      <button
+        className={view === 'locations' ? styles.active : ''}
+        onClick={() => onChange('locations')}
+      >
+        Locations
       </button>
     </div>
   );

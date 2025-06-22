@@ -64,3 +64,29 @@ export const fetchRickAndMortyEpisodes = async (): Promise<RMEpisode[]> => {
 
   return episodes;
 };
+
+export type RMLocation = {
+  id: number;
+  name: string;
+  type: string;
+  dimension: string;
+  residents: string[];
+  url: string;
+  created: string;
+};
+
+export const fetchRickAndMortyLocations = async (): Promise<RMLocation[]> => {
+  let locations: RMLocation[] = [];
+  let nextUrl: string | null = 'https://rickandmortyapi.com/api/location';
+
+  while (nextUrl) {
+    const res = await fetch(nextUrl);
+    if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+
+    const json = await res.json();
+    locations = locations.concat(json.results);
+    nextUrl = json.info.next;
+  }
+
+  return locations;
+};
