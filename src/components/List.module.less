@@ -6,8 +6,11 @@
 
   thead {
     background-color: var(--color-black-light);
-    padding: var(--spacing-mini);
     font-weight: var(--font-weight-medium);
+
+    & th {
+      padding: var(--spacing-mini) 0 var(--spacing-mini) 0;
+    }
   }
 
   th,
@@ -28,7 +31,7 @@
   }
 
   img {
-    width: 150px;
+    width: 90%;
     height: 100px;
     object-fit: cover;
     display: block;

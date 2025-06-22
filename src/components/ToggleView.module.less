@@ -1,18 +1,24 @@
 .toggleButtons {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-mini);
 
   button {
-    margin-right: 0.5rem;
-    padding: 0.5rem 1rem;
+    margin-right: var(--spacing-mini);
+    padding: var(--spacing-mini) var(--spacing-mini) var(--spacing-mini)
+      var(--spacing-mini);
     cursor: pointer;
     border: none;
-    background: #ddd;
-    border-radius: 5px;
-    font-weight: bold;
+    background: var(--color-white);
+    border-radius: var(--border-radius-mini);
+    font-weight: var(--font-weight-bold);
 
     &.active {
-      background: #00b5cc;
+      background: var(--color-greem-dark);
       color: white;
+    }
+
+    &:hover {
+      background: var(--color-greem-light);
+      color: var(--color-black);
     }
   }
 }
