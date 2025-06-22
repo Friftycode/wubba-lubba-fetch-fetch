@@ -9,13 +9,19 @@
     font-weight: var(--font-weight-medium);
 
     & th {
-      padding: var(--spacing-mini) 0 var(--spacing-mini) 0;
+      padding: var(--spacing-mini) 0 var(--spacing-mini) var(--spacing-mini);
     }
   }
 
   th,
   td {
+    border-right: 1px solid var(--color-black);
     text-align: left;
+    padding-left: var(--spacing-mini)
+  }
+  th:last-child,
+  td:last-child {
+    border-right: none;
   }
 
   tr:nth-child(even) {
