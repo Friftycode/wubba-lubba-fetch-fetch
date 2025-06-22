@@ -3,7 +3,7 @@ import MainPage from './page/MainPage.tsx';
 import './App.less';
 
 function App() {
-    return <MainPage />;
+  return <MainPage />;
 }
 
 export default App;
