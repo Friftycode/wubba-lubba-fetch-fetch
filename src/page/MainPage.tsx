@@ -5,7 +5,7 @@ import ToggleView from '../components/ToggleView.tsx';
 import styles from './MainPage.module.less';
 
 const MainPage = () => {
-  const [view, setView] = useState<'characters' | 'episodes'>('characters');
+  const [view, setView] = useState<'characters' | 'episodes' | 'locations'>('characters');
 
   return (
     <main>
