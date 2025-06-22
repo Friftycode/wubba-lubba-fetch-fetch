@@ -1,11 +1,12 @@
 import styles from './ToggleView.module.less';
+import type { FC } from 'react';
 
 type ToggleViewProps = {
   view: 'characters' | 'episodes' | 'locations';
   onChange: (view: 'characters' | 'episodes' | 'locations') => void;
 };
 
-const ToggleView: React.FC<ToggleViewProps> = ({ view, onChange }) => {
+const ToggleView: FC<ToggleViewProps> = ({ view, onChange }) => {
   return (
     <div className={styles.toggleButtons}>
       <button
