@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchRickAndMortyCharacters, type RMCharacter } from '../utils/api';
 import styles from './List.module.less';
-import placeholder from '../assets/sample.avif';
+import placeholder from '../../assets/no-image-300x300.jpeg';
 
 const List = () => {
   const [chars, setChars] = useState<RMCharacter[]>([]);
