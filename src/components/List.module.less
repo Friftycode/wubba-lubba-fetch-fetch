@@ -19,6 +19,7 @@
     text-align: left;
     padding-left: var(--spacing-mini);
   }
+
   th:last-child,
   td:last-child {
     border-right: none;
@@ -67,6 +68,11 @@
     color: var(--color-text-light);
     border: none;
     cursor: pointer;
+
+    &.active {
+      background: var(--color-green-dark);
+      color: white;
+    }
 
     &:hover {
       background-color: var(--color-black-light);

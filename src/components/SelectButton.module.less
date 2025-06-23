@@ -1,0 +1,25 @@
+.toggleButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+
+  & button {
+    margin: 0 var(--spacing-mini);
+    padding: var(--spacing-mini) var(--spacing-small);
+    background-color: var(--color-black-extra-light);
+    color: var(--color-text-light);
+    border: none;
+    cursor: pointer;
+
+    &.active {
+      background: var(--color-green-dark);
+      color: white;
+    }
+
+    &:hover {
+      background-color: var(--color-black-light);
+    }
+  }
+}

@@ -1,13 +1,24 @@
 import { useState } from 'react';
 import List from '../components/List.tsx';
-import ToggleView from '../components/ToggleView.tsx';
+import SelectButton from '../components/SelectButton.tsx';
 import DarkmodeToggle from '../components/DarkmodeToggle';
-//import spaceship from '../../assets/spaceship.png';
 import styles from './MainPage.module.less';
 
 const MainPage = () => {
   const [view, setView] = useState<'characters' | 'episodes' | 'locations'>(
     'characters'
+  );
+
+  const renderSelectButton = () => (
+    <SelectButton
+      options={[
+        { value: 'characters', label: 'Characters' },
+        { value: 'episodes', label: 'Episodes' },
+        { value: 'locations', label: 'Locations' },
+      ]}
+      value={view}
+      onChange={setView}
+    />
   );
 
   return (
@@ -16,12 +27,10 @@ const MainPage = () => {
         <DarkmodeToggle />
       </div>
       <div className={styles.starBackground}></div>
-      {/*<img src={spaceship} alt="Spaceship" className={styles.spaceship} />*/}
       <div className={styles.pageContainer}>
         <h1>WUBBA LUBBA FETCH FETCH</h1>
         <p>Morty, we’re fetching data, not feelings</p>
-
-        <ToggleView view={view} onChange={setView} />
+        {renderSelectButton()}
         <List view={view} />
       </div>
     </main>

@@ -6,9 +6,11 @@ import {
   type RMCharacter,
   type RMEpisode,
   type RMLocation,
-} from '../utils/api';
-import styles from './List.module.less';
+} from '../utils/rick-and-morty-api';
+import SelectButton from './SelectButton';
 import placeholder from '../../assets/no-image-300x300.jpeg';
+
+import styles from './List.module.less';
 
 type ListProps = {
   view: 'characters' | 'episodes' | 'locations';
@@ -62,26 +64,23 @@ const List = ({ view }: ListProps) => {
     if (totalPages <= 1) return null;
 
     const visiblePages = Math.min(3, totalPages);
-    const pageButtons = [];
-
-    for (let i = 0; i < visiblePages; i++) {
-      pageButtons.push(
-        <button key={i} onClick={() => setPage(i)}>
-          {i + 1}
-        </button>
-      );
-    }
+    const pageOptions = Array.from({ length: visiblePages }, (_, i) => ({
+      value: i,
+      label: (i + 1).toString(),
+    }));
 
     if (totalPages > 3) {
-      pageButtons.push(
-        <span key="ellipsis"> ... </span>,
-        <button key="last" onClick={() => setPage(totalPages - 1)}>
-          {totalPages}
-        </button>
-      );
+      pageOptions.push({ value: totalPages - 1, label: totalPages.toString() });
     }
 
-    return <div className={styles.nextPage}>{pageButtons}</div>;
+    return (
+      <SelectButton
+        options={pageOptions}
+        value={page}
+        onChange={setPage}
+        className={styles.nextPage}
+      />
+    );
   };
 
   return (
