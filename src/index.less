@@ -35,7 +35,7 @@
 [data-theme="dark"] {
   --color-background-toggle: #f5f5f5;
   --color-green-light: #97ce4c;
-  --color-green-dark: #4a7c2b;
+  --color-green-dark: #32cd32;
   --color-yellow: #f2c94c;
   --color-yellow-dark: #ffc107;
   --color-red: #ff0000;
@@ -51,7 +51,7 @@
 [data-theme="light"] {
   --color-background-toggle: #121212;
   --color-green-light: #97ce4c;
-  --color-green-dark: #4a7c2b;
+  --color-green-dark: #138808;
   --color-yellow: #f2c94c;
   --color-yellow-dark: #ffc107;
   --color-red: #ff0000;
@@ -83,4 +83,23 @@ html {
 a {
   color: var(--color-white);
   text-decoration: none;
+}
+
+[data-theme="dark"] {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
+    url("../assets/background-portal-caos-3840x2160.jpg");
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  filter: contrast(1.1) saturate(1);
+}
+
+[data-theme="light"] {
+  background-image: url("../assets/space.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
