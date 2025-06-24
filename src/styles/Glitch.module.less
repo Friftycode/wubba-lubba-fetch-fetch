@@ -1,0 +1,36 @@
+@keyframes glitch {
+  0% {
+    text-shadow:
+      2px 0 red,
+      -2px 0 blue;
+    transform: translate(0, 0);
+  }
+  20% {
+    text-shadow:
+      -2px 0 red,
+      2px 0 blue;
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    text-shadow:
+      2px 2px red,
+      -2px -2px blue;
+    transform: translate(1px, -1px);
+  }
+  60% {
+    text-shadow:
+      -2px 2px red,
+      2px -2px blue;
+    transform: translate(-1px, 1px);
+  }
+  80% {
+    text-shadow:
+      2px 0 red,
+      -2px 0 blue;
+    transform: translate(1px, 0);
+  }
+  100% {
+    text-shadow: none;
+    transform: translate(0, 0);
+  }
+}
