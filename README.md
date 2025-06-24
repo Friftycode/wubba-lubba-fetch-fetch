@@ -4,8 +4,8 @@ A TypeScript and React (with Vite) for fetching and displaying data from the Ric
 episodes, and
 locations.
 
+![readme.png](assets/readme.png)
 
-![img.png](img.png)
 ---
 
 ## Features
