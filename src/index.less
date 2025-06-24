@@ -5,18 +5,15 @@
 :root {
   --max-width-page: 1200px;
   --page-margin: auto auto 9.375rem auto;
-
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
-
   --font-size-xsmall: 0.875rem;
   --font-size-small: 1rem;
   --font-size-medium: 1.125rem;
   --font-size-large: 1.5rem;
   --font-size-xlarge: 3rem;
-
   --spacing-xmini: 0.125rem;
   --spacing-mini: 0.5rem;
   --spacing-xsmall: 1rem;
@@ -25,9 +22,7 @@
   --spacing-large: 2.5rem;
   --spacing-xlarge: 4rem;
   --spacing-xxlarge: 9.375rem;
-
   --height-header: 7.25rem;
-
   --border-radius-xmini: 0.1rem;
   --border-radius-mini: 0.25rem;
 }
@@ -46,6 +41,15 @@
   --color-black-extra-light: #282828;
   --color-background-dark: #121212;
   --color-background-white: #f5f5f5;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
+    url("../assets/background-portal-caos-3840x2160.webp");
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  filter: contrast(1.1) saturate(1);
 }
 
 [data-theme="light"] {
@@ -62,13 +66,16 @@
   --color-black-extra-light: #282828;
   --color-background-dark: #121212;
   --color-background-white: #f5f5f5;
+  background-image: url("../assets/background-space-3840x2160.webp");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
 
 #root {
   font-family: "Segoe UI", "Arial", "sans-serif";
   line-height: 1.5;
   font-weight: 400;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -83,81 +90,4 @@ html {
 a {
   color: var(--color-white);
   text-decoration: none;
-}
-
-[data-theme="dark"] {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
-    url("../assets/background-portal-caos-3840x2160.jpg");
-  background-blend-mode: multiply;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  filter: contrast(1.1) saturate(1);
-}
-
-[data-theme="light"] {
-  background-image: url("../assets/space.png");
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-}
-
-@media @breakpoint-mobile {
-  html {
-    font-size: 15px;
-  }
-
-  .pageContainer {
-    padding: var(--spacing-small);
-    max-width: 100vw;
-  }
-
-  table,
-  .listTable {
-    font-size: var(--font-size-small);
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .listTable thead,
-  .listTable tbody,
-  .listTable tr,
-  .listTable th,
-  .listTable td {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .listTable tr {
-    margin-bottom: var(--spacing-small);
-    border-bottom: 2px solid var(--color-black-extra-light);
-  }
-
-  .listTable th,
-  .listTable td {
-    padding: var(--spacing-mini) var(--spacing-xmini);
-    text-align: left;
-    border-right: none;
-  }
-
-  .labelRow {
-    grid-template-columns: 1fr;
-    font-size: var(--font-size-xsmall);
-  }
-
-  img {
-    max-width: 100%;
-    height: auto !important;
-  }
-
-  .toggleButtons,
-  .nextPage {
-    flex-direction: column;
-    gap: var(--spacing-mini);
-  }
 }

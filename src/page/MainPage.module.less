@@ -1,4 +1,5 @@
 @import "../styles/Glitch.module.less";
+@import "../index.less";
 
 .pageContainer {
   --max-width-page: var(--max-width-page);
@@ -38,7 +39,6 @@
   border-radius: 50%;
   animation: zoom 16s linear infinite;
 
-  /* The starfield: layer one */
   box-shadow:
     -42vw -4vh 0px 0px #fff,
     25vw -41vh 0px 0px #fff,
@@ -124,8 +124,7 @@
     -16vw 17vh 0px 0px #fff,
     18vw 27vh 0px 1px #fff,
     -8vw -10vh 1px 1px #fff,
-    /* The starfield: layer two — smaller stars, maybe background feel */ 24vw
-      9vh 1px 0px #fff,
+    24vw 9vh 1px 0px #fff,
     12vw -24vh 0px 1px #fff,
     -45vw -22vh 0px 0px #fff,
     -37vw -40vh 0px 1px #fff,
@@ -221,4 +220,34 @@
 
 [data-theme="dark"] .pageContainer h1 {
   animation: glitch 4.5s infinite linear alternate;
+}
+
+@media @breakpoint-tablet {
+  .pageContainer {
+    padding: var(--spacing-small);
+    max-width: 98vw;
+
+    & h1 {
+      font-size: var(--font-size-large);
+    }
+
+    & p {
+      font-size: var(--font-size-small);
+    }
+  }
+}
+
+@media @breakpoint-mobile {
+  .pageContainer {
+    padding: var(--spacing-xsmall);
+    max-width: 100vw;
+
+    & h1 {
+      font-size: 2rem;
+    }
+
+    & p {
+      font-size: var(--font-size-xsmall);
+    }
+  }
 }

@@ -1,4 +1,5 @@
 @import "../styles/Glitch.module.less";
+@import "../index.less";
 
 .listTable {
   margin-right: var(--spacing-medium);
@@ -40,15 +41,11 @@
   }
 
   img {
-    width: 90%;
+    width: 100%;
     height: 100px;
     object-fit: cover;
     display: block;
   }
-}
-
-.listLocation {
-  text-align: left;
 }
 
 .labelRow {
@@ -73,7 +70,7 @@
 
     &.active {
       background: var(--color-green-dark);
-      color: white;
+      color: var(--color-text-dark);
     }
 
     &:hover {
@@ -82,80 +79,128 @@
   }
 }
 
-[data-theme="dark"] {
-  @keyframes glitch-bg {
-    0% {
-      background-color: var(--color-black-light);
-    }
-    25% {
-      background-color: #222;
-    }
-    50% {
-      background-color: #333;
-    }
-    75% {
-      background-color: #222;
-    }
-    100% {
-      background-color: var(--color-black-light);
-    }
-  }
-
-  .listTable {
-    tr:hover {
-      animation: glitch 4.5s infinite linear alternate;
-
-      td,
-      th {
-        animation: glitch 4.5s infinite linear alternate;
-        position: relative;
-      }
-
-      transform: skewX(0.5deg) scale(1.002);
-    }
-
-    td,
-    th {
-      transition: transform 0.1s;
-    }
-  }
-}
-
 .cardList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-small);
-  margin: var(--spacing-small) 0;
+  display: none;
 }
 
 .card {
+  position: relative;
+  width: 320px;
+  height: 320px;
   background: var(--color-black-extra-light);
   border-radius: var(--border-radius-mini);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  padding: var(--spacing-small);
+  overflow: hidden;
   display: flex;
-  gap: var(--spacing-small);
-  align-items: flex-start;
-  width: 100%;
-  box-sizing: border-box;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0 auto;
 }
 
 .card img {
-  max-width: 200px;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
   border-radius: var(--border-radius-mini);
+  filter: brightness(0.7) saturate(1.5);
 }
 
 .cardContent {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25em;
-  flex: 1 1 0%;
-  min-width: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: var(--color-white);
+  text-shadow:
+    0 0 2px var(--color-background-dark),
+    0 0 5px var(--color-black),
+    0 0 18px var(--color-black);
 }
 
 .cardTitle {
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-medium);
   margin-bottom: 0.25em;
+  text-align: left;
+}
+
+.cardField {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.15em;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.cardLabel {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-yellow);
+  text-align: left;
+}
+
+.error {
+  color: var(--color-red);
+  font-weight: var(--font-weight-bold);
+  margin: var(--spacing-mini) 0;
+}
+
+@media @breakpoint-tablet {
+  .listTable {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+    margin: var(--spacing-small) 0;
+    justify-content: center;
+  }
+
+  .card {
+    width: 320px;
+    height: 320px;
+    font-size: var(--font-size-small);
+  }
+
+  .cardContent {
+    font-size: var(--font-size-xsmall);
+    padding: var(--spacing-mini);
+    gap: 0.15em;
+  }
+
+  .cardTitle {
+    font-size: var(--font-size-small);
+    margin-bottom: 0.15em;
+  }
+}
+
+@media @breakpoint-mobile {
+  .cardList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+    margin: var(--spacing-small) 0;
+    justify-content: center;
+  }
+
+  .card {
+    width: 90vw;
+    max-width: 320px;
+    height: 320px;
+    font-size: var(--font-size-xsmall);
+  }
+
+  .cardContent {
+    font-size: 0.75rem;
+    padding: var(--spacing-xmini) var(--spacing-mini);
+    gap: 0.1em;
+  }
+
+  .cardTitle {
+    font-size: 1rem;
+    margin-bottom: 0.1em;
+  }
 }
