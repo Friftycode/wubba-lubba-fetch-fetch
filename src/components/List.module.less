@@ -1,3 +1,5 @@
+@import "../styles/Glitch.module.less";
+
 .listTable {
   margin-right: var(--spacing-medium);
   border-collapse: collapse;
@@ -76,6 +78,45 @@
 
     &:hover {
       background-color: var(--color-black-light);
+    }
+  }
+}
+
+[data-theme="dark"] {
+  @keyframes glitch-bg {
+    0% {
+      background-color: var(--color-black-light);
+    }
+    25% {
+      background-color: #222;
+    }
+    50% {
+      background-color: #333;
+    }
+    75% {
+      background-color: #222;
+    }
+    100% {
+      background-color: var(--color-black-light);
+    }
+  }
+
+  .listTable {
+    tr:hover {
+      animation: glitch 4.5s infinite linear alternate;
+
+      td,
+      th {
+        animation: glitch 4.5s infinite linear alternate;
+        position: relative;
+      }
+
+      transform: skewX(0.5deg) scale(1.002);
+    }
+
+    td,
+    th {
+      transition: transform 0.1s;
     }
   }
 }

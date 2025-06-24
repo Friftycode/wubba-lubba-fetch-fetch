@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import MoonIcon from '../../assets/MoonIcon';
-import SunIcon from '../../assets/SunIcon';
+import PortalIcon from '../../assets/portal.svg';
+import EarthIcon from '../../assets/earth.svg';
 import { Darkmode, useDarkmodeContext } from '../utils/darkmode-utils.ts';
 import styles from './DarkmodeToggle.module.less';
 
@@ -24,7 +24,11 @@ const DarkmodeToggle: FC<DarkmodeToggleProps> = ({ className }) => {
       aria-label="Toggle dark mode"
       className={`${styles.darkmodeToggle} ${className}`}
     >
-      {theme === Darkmode.Dark ? <SunIcon /> : <MoonIcon />}
+      {theme === Darkmode.Dark ? (
+        <img src={PortalIcon} alt="Portal" />
+      ) : (
+        <img src={EarthIcon} alt="Earth" />
+      )}
     </button>
   );
 };
