@@ -103,3 +103,61 @@ a {
   background-size: cover;
   background-position: center;
 }
+
+@media @breakpoint-mobile {
+  html {
+    font-size: 15px;
+  }
+
+  .pageContainer {
+    padding: var(--spacing-small);
+    max-width: 100vw;
+  }
+
+  table,
+  .listTable {
+    font-size: var(--font-size-small);
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .listTable thead,
+  .listTable tbody,
+  .listTable tr,
+  .listTable th,
+  .listTable td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .listTable tr {
+    margin-bottom: var(--spacing-small);
+    border-bottom: 2px solid var(--color-black-extra-light);
+  }
+
+  .listTable th,
+  .listTable td {
+    padding: var(--spacing-mini) var(--spacing-xmini);
+    text-align: left;
+    border-right: none;
+  }
+
+  .labelRow {
+    grid-template-columns: 1fr;
+    font-size: var(--font-size-xsmall);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto !important;
+  }
+
+  .toggleButtons,
+  .nextPage {
+    flex-direction: column;
+    gap: var(--spacing-mini);
+  }
+}

@@ -9,7 +9,7 @@ import {
 } from '../utils/rick-and-morty-api';
 import SelectButton from './SelectButton';
 import placeholder from '../../assets/no-image-300x300.jpeg';
-
+import { useMediaQuery } from '../utils/useMediaQuery';
 import styles from './List.module.less';
 
 type ListProps = {
@@ -25,6 +25,9 @@ const List = ({ view }: ListProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(0);
+
+  // Responsive: use cards for <=1040px
+  const isMobile = useMediaQuery('(max-width: 1040px)');
 
   useEffect(() => {
     setLoading(true);
@@ -83,110 +86,165 @@ const List = ({ view }: ListProps) => {
     );
   };
 
+  // Card renderers for each view
+  const renderCharacterCards = () => (
+    <div className={styles.cardList}>
+      {chars.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE).map((c) => (
+        <div className={styles.card} key={c.id}>
+          <img src={c.image || placeholder} alt={c.name} />
+          <div className={styles.cardContent}>
+            <div className={styles.cardTitle}>{c.name}</div>
+            <div>Species: {c.species}</div>
+            <div>Gender: {c.gender}</div>
+            <div>Last known: {c.location.name}</div>
+            <div>Origin: {c.origin.name}</div>
+            <div>Status: {c.status}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderEpisodeCards = () => (
+    <div className={styles.cardList}>
+      {episodes.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE).map((ep) => (
+        <div className={styles.card} key={ep.id}>
+          <div className={styles.cardTitle}>{ep.name}</div>
+          <div>Episode: {ep.episode}</div>
+          <div>Air Date: {ep.air_date}</div>
+          <div>Characters: {ep.characters.length}</div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderLocationCards = () => (
+    <div className={styles.cardList}>
+      {locations.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE).map((loc) => (
+        <div className={styles.card} key={loc.id}>
+          <div className={styles.cardTitle}>{loc.name}</div>
+          <div>Type: {loc.type}</div>
+          <div>Dimension: {loc.dimension}</div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <main>
       {loading && <p>Loading {view}…</p>}
       {error && <p style={{ color: 'var(--color-red)' }}>{error}</p>}
 
-      {view === 'characters' && (
+      {isMobile ? (
         <>
-          <table className={styles.listTable}>
-            <thead>
-              <tr>
-                <th>Interdimensional Mugshot</th>
-                <th>Probably Their Name</th>
-                <th>Planetary Genotype</th>
-                <th>Gender Stereotype</th>
-                <th>Currently Screwing Around In</th>
-                <th>Breathing or Buried</th>
-              </tr>
-            </thead>
-            <tbody>
-              {chars
-                .slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
-                .map((c) => (
-                  <tr key={c.id}>
-                    <td>
-                      <img
-                        src={c.image || placeholder}
-                        alt={c.name}
-                        width={50}
-                        height={50}
-                      />
-                    </td>
-                    <td>{c.name}</td>
-                    <td>{c.species}</td>
-                    <td>{c.gender}</td>
-                    <td>
-                      <div className={styles.labelRow}>
-                        <span>Last known:</span>
-                        <span>{c.location.name}</span>
-                      </div>
-                      <div className={styles.labelRow}>
-                        <span>Origin:</span>
-                        <span>{c.origin.name}</span>
-                      </div>
-                    </td>
-                    <td>{c.status}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          {view === 'characters' && renderCharacterCards()}
+          {view === 'episodes' && renderEpisodeCards()}
+          {view === 'locations' && renderLocationCards()}
           {renderPagination()}
         </>
-      )}
-
-      {view === 'episodes' && (
+      ) : (
         <>
-          <table className={styles.listTable}>
-            <thead>
-              <tr>
-                <th>Chronological Blip</th>
-                <th>Title You’ll Forget Anyway</th>
-                <th>Air Date, Woohoo</th>
-                <th>Population of This Mess</th>
-              </tr>
-            </thead>
-            <tbody>
-              {episodes
-                .slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
-                .map((ep) => (
-                  <tr key={ep.id}>
-                    <td>{ep.episode}</td>
-                    <td>{ep.name}</td>
-                    <td>{ep.air_date}</td>
-                    <td>{ep.characters.length}</td>
+          {view === 'characters' && (
+            <>
+              <table className={styles.listTable}>
+                <thead>
+                  <tr>
+                    <th>Interdimensional Mugshot</th>
+                    <th>Probably Their Name</th>
+                    <th>Planetary Genotype</th>
+                    <th>Gender Stereotype</th>
+                    <th>Currently Screwing Around In</th>
+                    <th>Breathing or Buried</th>
                   </tr>
-                ))}
-            </tbody>
-          </table>
-          {renderPagination()}
-        </>
-      )}
+                </thead>
+                <tbody>
+                  {chars
+                    .slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+                    .map((c) => (
+                      <tr key={c.id}>
+                        <td>
+                          <img
+                            src={c.image || placeholder}
+                            alt={c.name}
+                            width={50}
+                            height={50}
+                          />
+                        </td>
+                        <td>{c.name}</td>
+                        <td>{c.species}</td>
+                        <td>{c.gender}</td>
+                        <td>
+                          <div className={styles.labelRow}>
+                            <span>Last known:</span>
+                            <span>{c.location.name}</span>
+                          </div>
+                          <div className={styles.labelRow}>
+                            <span>Origin:</span>
+                            <span>{c.origin.name}</span>
+                          </div>
+                        </td>
+                        <td>{c.status}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+              {renderPagination()}
+            </>
+          )}
 
-      {view === 'locations' && (
-        <>
-          <table className={styles.listTable}>
-            <thead>
-              <tr>
-                <th>Ugh, The Place</th>
-                <th>What It Technically Is</th>
-                <th>Dimensional Whatever</th>
-              </tr>
-            </thead>
-            <tbody>
-              {locations
-                .slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
-                .map((loc) => (
-                  <tr key={loc.id}>
-                    <td>{loc.name}</td>
-                    <td>{loc.type}</td>
-                    <td>{loc.dimension}</td>
+          {view === 'episodes' && (
+            <>
+              <table className={styles.listTable}>
+                <thead>
+                  <tr>
+                    <th>Chronological Blip</th>
+                    <th>Title You’ll Forget Anyway</th>
+                    <th>Air Date, Woohoo</th>
+                    <th>Population of This Mess</th>
                   </tr>
-                ))}
-            </tbody>
-          </table>
-          {renderPagination()}
+                </thead>
+                <tbody>
+                  {episodes
+                    .slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+                    .map((ep) => (
+                      <tr key={ep.id}>
+                        <td>{ep.episode}</td>
+                        <td>{ep.name}</td>
+                        <td>{ep.air_date}</td>
+                        <td>{ep.characters.length}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+              {renderPagination()}
+            </>
+          )}
+
+          {view === 'locations' && (
+            <>
+              <table className={styles.listTable}>
+                <thead>
+                  <tr>
+                    <th>Ugh, The Place</th>
+                    <th>What It Technically Is</th>
+                    <th>Dimensional Whatever</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {locations
+                    .slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+                    .map((loc) => (
+                      <tr key={loc.id}>
+                        <td>{loc.name}</td>
+                        <td>{loc.type}</td>
+                        <td>{loc.dimension}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+              {renderPagination()}
+            </>
+          )}
         </>
       )}
     </main>

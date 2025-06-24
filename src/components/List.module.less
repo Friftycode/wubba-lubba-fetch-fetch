@@ -120,3 +120,42 @@
     }
   }
 }
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+  margin: var(--spacing-small) 0;
+}
+
+.card {
+  background: var(--color-black-extra-light);
+  border-radius: var(--border-radius-mini);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: var(--spacing-small);
+  display: flex;
+  gap: var(--spacing-small);
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card img {
+  max-width: 200px;
+  height: auto;
+  border-radius: var(--border-radius-mini);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-medium);
+  margin-bottom: 0.25em;
+}
