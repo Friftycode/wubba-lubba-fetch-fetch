@@ -28,9 +28,9 @@ locations.
 ## API Integration
 
 - **REST Base URL:** `https://rickandmortyapi.com/api`
-    - `/character`
-    - `/episode`
-    - `/location`
+  - `/character`
+  - `/episode`
+  - `/location`
 - **GraphQL Endpoint:** `https://rickandmortyapi.com/graphql`
 
 Pagination is handled automatically; up to 20 items per page are fetched and merged.
@@ -40,9 +40,12 @@ Pagination is handled automatically; up to 20 items per page are fetched and mer
 ## Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/Friftycode/wubba-lubba-fetch-fetch.git
    cd wubba-lubba-fetch-fetch
+
+   ```
 
 2. **Install dependencies:**
 
@@ -67,7 +70,7 @@ Visit the URL Vite outputs (typically http://localhost:5173/).
 - Pagination controls appear if there are multiple pages of data.
 - Responsive design: tables on desktop, cards on mobile/tablet.
 
---- 
+---
 
 ### Credits
 

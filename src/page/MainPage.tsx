@@ -1,26 +1,14 @@
 import { useState } from 'react';
 import List from '../components/List.tsx';
-import SelectButton from '../components/SelectButton.tsx';
+import SelectButtons from '../components/SelectButtons.tsx';
 import DarkmodeToggle from '../components/DarkmodeToggle';
 import { useDarkmodeContext } from '../utils/darkmode-utils.ts';
 import styles from './MainPage.module.less';
 
 const MainPage = () => {
+  const { theme } = useDarkmodeContext();
   const [view, setView] = useState<'characters' | 'episodes' | 'locations'>(
     'characters'
-  );
-  const { theme } = useDarkmodeContext();
-
-  const renderSelectButton = () => (
-    <SelectButton
-      options={[
-        { value: 'characters', label: 'Characters' },
-        { value: 'episodes', label: 'Episodes' },
-        { value: 'locations', label: 'Locations' },
-      ]}
-      value={view}
-      onChange={setView}
-    />
   );
 
   return (
@@ -41,7 +29,15 @@ const MainPage = () => {
             <p>Morty, we’re fetching data, not feelings</p>
           </>
         )}
-        {renderSelectButton()}
+        <SelectButtons
+          options={[
+            { value: 'characters', label: 'Characters' },
+            { value: 'episodes', label: 'Episodes' },
+            { value: 'locations', label: 'Locations' },
+          ]}
+          value={view}
+          onChange={setView}
+        />
         <List view={view} />
       </div>
     </main>

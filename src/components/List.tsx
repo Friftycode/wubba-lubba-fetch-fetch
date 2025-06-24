@@ -7,7 +7,7 @@ import {
   type RMEpisode,
   type RMLocation,
 } from '../utils/rick-and-morty-api';
-import SelectButton from './SelectButton';
+import SelectButtons from './SelectButtons.tsx';
 import placeholder from '../../assets/no-image-300x300.jpeg';
 import styles from './List.module.less';
 
@@ -24,6 +24,9 @@ const List = ({ view }: ListProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(0);
+  const [data, setData] = useState<RMCharacter[] | RMEpisode[] | RMLocation[]>(
+    chars
+  );
 
   useEffect(() => {
     setLoading(true);
@@ -32,16 +35,13 @@ const List = ({ view }: ListProps) => {
 
     const fetchData = async () => {
       try {
-        if (view === 'characters') {
-          const data = await fetchRickAndMortyCharacters();
-          setChars(data);
-        } else if (view === 'episodes') {
-          const data = await fetchRickAndMortyEpisodes();
-          setEpisodes(data);
-        } else if (view === 'locations') {
-          const data = await fetchRickAndMortyLocations();
-          setLocations(data);
-        }
+        const characters = await fetchRickAndMortyCharacters();
+        setChars(characters);
+        setData(characters);
+        const episodes = await fetchRickAndMortyEpisodes();
+        setEpisodes(episodes);
+        const locations = await fetchRickAndMortyLocations();
+        setLocations(locations);
       } catch {
         setError('Failed to load data.');
       } finally {
@@ -50,53 +50,53 @@ const List = ({ view }: ListProps) => {
     };
 
     fetchData();
-  }, [view]);
+  }, []);
 
-  let data: RMCharacter[] | RMEpisode[] | RMLocation[] = [];
-  if (view === 'characters') data = chars;
-  if (view === 'episodes') data = episodes;
-  if (view === 'locations') data = locations;
   const totalPages = Math.ceil(data.length / PAGE_SIZE);
 
-  const renderPagination = () => {
-    if (totalPages <= 1) return null;
+  const previousPageOptions = [{ value: 'previous', label: 'Previous' }];
+  const firstPageOptions = [
+    {
+      value: 0,
+      label: '1',
+    },
+  ];
+  if (page <= 3) {
+    firstPageOptions.push({
+      value: 1,
+      label: '2',
+    });
+  }
 
-    const visiblePages = Math.min(3, totalPages);
-    const pageOptions = [
-      { value: 'start', label: 'Start', disabled: page === 0 },
-      ...Array.from({ length: visiblePages }, (_, i) => ({
-        value: i,
-        label: (i + 1).toString(),
-        disabled: false,
-      })),
-      ...(totalPages > 3
-        ? [
-            {
-              value: totalPages - 1,
-              label: totalPages.toString(),
-              disabled: false,
-            },
-          ]
-        : []),
-      { value: 'next', label: 'Next', disabled: page >= totalPages - 1 },
-    ];
+  firstPageOptions.push(
+    ...[page - 1, page, page + 1].map((_, i) => ({
+      value: i,
+      label: (i + 1).toString(),
+      disabled: false,
+    }))
+  );
+  const middlePageOptions = [
+    ...(totalPages > 3
+      ? [
+          {
+            value: totalPages - 1,
+            label: totalPages.toString(),
+          },
+        ]
+      : []),
+  ];
+  const lastPageOptions = [
+    {
+      value: totalPages - 1,
+      label: totalPages.toString(),
+    },
+  ];
+  const nextPageOptions = [{ value: 'next', label: 'Next' }];
 
-    const handleChange = (val: string | number) => {
-      if (val === 'start') setPage(0);
-      else if (val === 'next') setPage((p) => Math.min(p + 1, totalPages - 1));
-      else setPage(Number(val));
-    };
-
-    return (
-      <div className={styles.paginationRow}>
-        <SelectButton
-          options={pageOptions}
-          value={page}
-          onChange={handleChange}
-          className={styles.pageButton}
-        />
-      </div>
-    );
+  const handleChange = (val: string | number) => {
+    if (val === 'previous') setPage((p) => Math.max(p - 1, 0));
+    else if (val === 'next') setPage((p) => Math.min(p + 1, totalPages - 1));
+    else setPage(Number(val));
   };
 
   return (
@@ -178,7 +178,6 @@ const List = ({ view }: ListProps) => {
               </div>
             ))}
           </div>
-          {renderPagination()}
         </>
       )}
 
@@ -229,7 +228,6 @@ const List = ({ view }: ListProps) => {
                 </div>
               ))}
           </div>
-          {renderPagination()}
         </>
       )}
 
@@ -274,8 +272,33 @@ const List = ({ view }: ListProps) => {
                 </div>
               ))}
           </div>
-          {renderPagination()}
         </>
+      )}
+      {totalPages > 1 && (
+        <div className={styles.paginationRow}>
+          {page !== 0 && (
+            <SelectButtons
+              options={previousPageOptions}
+              value={page}
+              onChange={handleChange}
+              className={styles.pageButton}
+            />
+          )}
+          {page < 3 && (
+            <SelectButtons
+              options={firstPageOptions}
+              value={page}
+              onChange={handleChange}
+              className={styles.pageButton}
+            />
+          )}
+          <SelectButtons
+            options={middlePageOptions}
+            value={page}
+            onChange={handleChange}
+            className={styles.pageButton}
+          />
+        </div>
       )}
     </main>
   );

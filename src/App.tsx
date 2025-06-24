@@ -6,7 +6,7 @@ import './App.less';
 function App() {
   return (
     <DarkmodeProvider>
-      <MainPage />;
+      <MainPage />
     </DarkmodeProvider>
   );
 }
