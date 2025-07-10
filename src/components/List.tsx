@@ -7,9 +7,9 @@ import {
   type RMEpisode,
   type RMLocation,
 } from '../utils/rick-and-morty-api';
-import SelectButton from './SelectButton';
 import placeholder from '../../assets/no-image-300x300.jpeg';
 import styles from './List.module.less';
+import Pagination from './Pagination.tsx';
 
 type ListProps = {
   view: 'characters' | 'episodes' | 'locations';
@@ -58,34 +58,25 @@ const List = ({ view }: ListProps) => {
   if (view === 'locations') data = locations;
   const totalPages = Math.ceil(data.length / PAGE_SIZE);
 
-  const renderPagination = () => {
-    if (totalPages <= 1) return null;
-
-    const visiblePages = Math.min(3, totalPages);
-    const pageOptions = [
-      { value: 'start', label: 'Start', disabled: page === 0 },
-      ...Array.from({ length: visiblePages }, (_, i) => ({
-        value: i,
-        label: (i + 1).toString(),
-        disabled: false,
-      })),
-      ...(totalPages > 3
-        ? [
-            {
-              value: totalPages - 1,
-              label: totalPages.toString(),
-              disabled: false,
-            },
-          ]
-        : []),
-      { value: 'next', label: 'Next', disabled: page >= totalPages - 1 },
-    ];
-
-    const handleChange = (val: string | number) => {
-      if (val === 'start') setPage(0);
-      else if (val === 'next') setPage((p) => Math.min(p + 1, totalPages - 1));
-      else setPage(Number(val));
-    };
+  const pageOptions = [];
+  if (page !== 0 && totalPages > 3) {
+    pageOptions.push({ value: 'previous', label: 'Previous' });
+  }
+  pageOptions.push(
+    ...Array.from({ length: totalPages }, (_, i) => ({
+      value: i,
+      label: (i + 1).toString(),
+      disabled: false,
+    }))
+  );
+  if (page !== totalPages - 1 && totalPages > 3) {
+    pageOptions.push({ value: 'next', label: 'Next' });
+  }
+  const handleChange = (val: string | number) => {
+    if (val === 'previous') setPage((p) => Math.max(p - 1, 0));
+    else if (val === 'next') setPage((p) => Math.min(p + 1, totalPages - 1));
+    else setPage(Number(val));
+  };
 
     return (
       <div className={styles.paginationRow}>
@@ -178,7 +169,6 @@ const List = ({ view }: ListProps) => {
               </div>
             ))}
           </div>
-          {renderPagination()}
         </>
       )}
 
@@ -229,7 +219,6 @@ const List = ({ view }: ListProps) => {
                 </div>
               ))}
           </div>
-          {renderPagination()}
         </>
       )}
 
@@ -277,7 +266,16 @@ const List = ({ view }: ListProps) => {
           {renderPagination()}
         </>
       )}
-    </main>
+      {totalPages > 1 && (
+        <Pagination
+          options={pageOptions}
+          value={page}
+          onChange={handleChange}
+          className={styles.pageButton}
+          totalPages={totalPages}
+        />
+      )}
+    </>
   );
 };
 
