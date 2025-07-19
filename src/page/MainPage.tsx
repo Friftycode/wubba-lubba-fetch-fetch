@@ -6,27 +6,20 @@ import { useDarkmodeContext } from '../utils/darkmode-utils.ts';
 import styles from './MainPage.module.less';
 
 const MainPage = () => {
-  const [view, setView] = useState<'characters' | 'episodes' | 'locations'>(
-    'characters'
-  );
+  type View = 'characters' | 'episodes' | 'locations';
+  const { theme } = useDarkmodeContext();
+  const [view, setView] = useState<View>('characters');
 
   return (
     <main>
-      <div className={styles.buttonContainer}>
-        <DarkmodeToggle />
-      </div>
-      <div className={styles.starBackground}></div>
+      <DarkmodeToggle className={styles.buttonContainer} />
+      <div className={styles.starBackground} />
       <div className={styles.pageContainer}>
+        <h1>WUBBA LUBBA FETCH FETCH</h1>
         {theme === 'dark' ? (
-          <>
-            <h1>WUBBA LUBBA FETCH FETCH</h1>
-            <p>You break the universe Morty, you deal with the tentacles.</p>
-          </>
+          <p>You break the universe Morty, you deal with the tentacles.</p>
         ) : (
-          <>
-            <h1>WUBBA LUBBA FETCH FETCH</h1>
-            <p>Morty, we’re fetching data, not feelings</p>
-          </>
+          <p>Morty, we’re fetching data, not feelings</p>
         )}
         {(
           [
