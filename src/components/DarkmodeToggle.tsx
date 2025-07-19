@@ -5,6 +5,7 @@ import EarthIcon from '../../assets/earth.svg';
 import { Darkmode, useDarkmodeContext } from '../utils/darkmode-utils.ts';
 
 import styles from './DarkmodeToggle.module.less';
+import classNames from 'classnames';
 
 interface DarkmodeToggleProps {
   className?: string;
@@ -23,7 +24,7 @@ const DarkmodeToggle: FC<DarkmodeToggleProps> = ({ className }) => {
     <button
       onClick={handleClick}
       aria-label="Toggle dark mode"
-      className={`${styles.darkmodeToggle} ${className}`}
+      className={classNames(styles.darkmodeToggle, className)}
     >
       {theme === Darkmode.Dark ? (
         <img src={PortalIcon} alt="Portal" />
