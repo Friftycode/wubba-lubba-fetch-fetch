@@ -81,7 +81,6 @@ export const PaginationButton = ({
   className = '',
 }: PaginationButtonProps) => (
   <button
-    key={option.value}
     className={classNames(
       styles.pagination,
       value === option.value ? styles.active : '',
